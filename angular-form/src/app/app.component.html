@@ -1,23 +1,44 @@
 <div class="container-fluid">
   <h1>Grocery List</h1>
-  <form action="">
+
+  <form #customerForm="ngForm">
+
     <div class="form-group">
       <label for="first-name">FirstName</label>
-      <input type="text" name="first-name" class="form-control">
+      <input type="text" name="first-name" class="form-control" [(ngModel)]="customerModel.firstName"
+      #firstName="ngModel" pattern="[A-Za-z-']*" [class.is-invalid]="firstName.invalid && firstName.touched">
+      <small class="text-danger" *ngIf="firstName.errors && firstName.errors.pattern">The name can include only hypens, apostrophes and letters</small>        
     </div>
 
     <div class="form-group">
       <label for="last-name">Last Name</label>
-      <input type="text" name="last-name" class="form-control">
+      <input type="text" name="last-name" class="form-control" [(ngModel)]="customerModel.lastName"
+      #lastName="ngModel" pattern="[A-Za-z-']*" [class.is-invalid]="lastName.invalid && lastName.touched">
+      <small class="text-danger" *ngIf="lastName.errors && lastName.errors.pattern">The last name can include only hypens, apostrophes and letters</small>      
     </div>
 
     <div class="form-group">
       <label for="street-address">Street Address *</label>
-      <input type="text" name="street-address" class="form-control" required>
+      <input type="text" name="street-address" class="form-control" required [(ngModel)]="customerModel.streetAddress" #address="ngModel"
+      [class.is-invalid]="address.invalid && address.touched">
+      <small class="text-danger" *ngIf="submitForm && address.invalid && address.touched">The address is required</small>            
     </div>
-    <div class="alert alert-danger" role="alert">
-      The address is a required field.
+
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="submitForm = true" type="submit">Submit address</button>
     </div>
-    <button class="btn btn-primary">Submit address</button>
   </form>
+
+  <form #fruitsForm>
+      <div class="form-group">
+        <label for="fruit">Fruit</label>
+        <select required #fruit="ngModel" class="custom-select" [(ngModel)]="customerModel.fruit" name="fruit">
+          <option value="" selected>Select a fruit</option>
+          <option *ngFor="let fruit of fruits">{{fruit}}</option>
+        </select>
+      </div>
+  </form>
+    
+    
+  
 </div>
