@@ -3,6 +3,6 @@ export class Customer {
         public firstName: string,
         public lastName: string,
         public streetAddress: string,
-        public fruit: string
+        public fruit: Array<string>
     ) {}
 }
