@@ -12,6 +12,7 @@ import { MovieComponent } from './movie/movie.component';
 import { MovieService } from './movie.service'
 import { AppRoutingModule } from './app-routing.module';
 import { GenresComponent } from './genres/genres.component';
+import { PagerService } from './pager.service'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { GenresComponent } from './genres/genres.component';
     BrowserModule, FormsModule, HttpClientModule, BrowserAnimationsModule,
     MatTabsModule, MatSelectModule, AppRoutingModule, MatCardModule, MatPaginatorModule
     ],
-  providers: [ MovieService ],
+  providers: [ MovieService,PagerService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

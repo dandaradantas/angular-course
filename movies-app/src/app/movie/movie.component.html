@@ -1,24 +1,37 @@
 
-  <h1>Movies</h1>
+  <h1 class="movies-title">Movies</h1>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+    </li>
+</ul>
+
+  <div class="cards-container">
   
-  <mat-card *ngFor="let movie of selectedMoviesByGenre" class="movie-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{movie.title}}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" *ngIf="movie.poster_path" alt="{{movie.title}} poster">
-    <mat-card-content>
-      <p>
-        {{movie.overview}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card *ngFor="let movie of pagedItems" class="movie-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{movie.title}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" *ngIf="movie.poster_path" alt="{{movie.title}} poster">
+      <mat-card-content>
+        <p>
+          {{movie.overview}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+ 
   
-
-
