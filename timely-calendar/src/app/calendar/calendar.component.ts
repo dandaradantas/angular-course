@@ -51,6 +51,7 @@ export class CalendarComponent implements OnInit {
     this.getEvents();
   }
 
+  /* Method to call the API when start date, page, or items per page are changed */
   getEvents() {
     this.api.getEventsListByStartDate(this.calendarID, this.startDate, this.page, this.itemsPerPage)
        .subscribe(response => {
@@ -60,6 +61,7 @@ export class CalendarComponent implements OnInit {
       })
   }
 
+  /* Method called when the user selects a new start date */
   changeStartDateHandler(event) {
     this.startDate = this.pipe.transform(event.value, 'yyyy-MM-dd');
     this.getEvents();

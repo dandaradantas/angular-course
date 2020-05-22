@@ -5,7 +5,8 @@
             <mat-card-title>{{event.title}}</mat-card-title>
             <mat-card-subtitle>Start date: {{event.start_datetime | date }}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="{{event.images ? event.images[0].sizes.small.url : '../assets/images/default-event.png'}}" alt={{event.title}} />
+        <img mat-card-image [src]="getImagePath(event)" 
+            (error)="imageErrorHandler($event)" alt={{event.title}} />
         <mat-card-content>
             <p>
                 {{event.description_short}}
