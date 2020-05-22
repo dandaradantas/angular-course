@@ -1,0 +1,55 @@
+.events-grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto;
+}
+
+.events-grid mat-card {
+    max-width: 300px;
+    margin: 8px;
+    text-align: center;
+    min-height: 380px;
+    max-height: 380px;
+    display: flex;
+    padding: 15px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    box-shadow: 3px 5px 5px #888888;
+}
+
+.mat-card-image {
+    width: 100%;
+}
+
+.calendar span.e-day {
+    background-color: #EEB901;
+    border: 1px solid #EEB901;
+}
+
+.calendar ejs-calendar {
+    margin: 10px auto;
+}
+
+@media (max-width: 700px){
+    .events-grid {
+        grid-template-columns: auto auto;
+    }
+
+    .events-grid mat-card {
+        max-width: 250px;
+        margin: 10px;
+    }
+}
+
+@media (max-width: 450px){
+    .events-grid {
+        grid-template-columns: auto;
+    }
+
+    .events-grid mat-card {
+        max-width: 300px;
+        margin: 10px;
+    }
+}

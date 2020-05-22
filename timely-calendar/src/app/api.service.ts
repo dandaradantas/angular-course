@@ -9,7 +9,6 @@ export class ApiService {
 
   mainUrl = 'https://timelyapp.time.ly/api/calendars/';
   urlParam = 'https://calendar.time.ly/ficceyp4';
-  params = new HttpParams();
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +21,14 @@ export class ApiService {
   }
 
   getEventsListByStartDate(calendarId, startDate): Observable<any> {
-    this.params.append('start_date', startDate);
-    return this.http.get(this.mainUrl + calendarId + '/events', {params: this.params});
+
+    return this.http.get(this.mainUrl + calendarId + '/events', 
+    {
+      params: {
+        'start_date': startDate,
+        'per_page': '12',
+        'page': '1'
+      }
+    });
   }
 }

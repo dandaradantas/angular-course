@@ -13,8 +13,8 @@ export class CalendarComponent implements OnInit {
   
   public month: number = new Date().getMonth();
   public fullYear: number = new Date().getFullYear();
-  public value: Date = new Date(this.fullYear, this.month , 11);
-  public minDate: Date = new Date(this.fullYear, this.month , 9);
+  public value: Date = new Date();
+  public minDate: Date = new Date();
   public maxDate: Date = new Date(this.fullYear, 8, 15);
 
   pipe = new DatePipe('en-US');

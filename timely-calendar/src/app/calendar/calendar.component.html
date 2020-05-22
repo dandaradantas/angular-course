@@ -1,21 +1,20 @@
-<ejs-calendar id=calendar [value]='value' (change)="getEvents($event)"> </ejs-calendar>
+<div class="calendar">
+  <ejs-calendar id=calendar [value]='value' (change)="getEvents($event)"> </ejs-calendar>
+</div>
 
-<mat-grid-list *ngFor="let event of eventsList" cols="2">
-    
-    <mat-grid-tile>
-        <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>{{event.title}}</mat-card-title>
-              <mat-card-subtitle>Start date: {{event.start_datetime | date }}</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image src="{{event.images[0].sizes.small.url ? event.images[0].sizes.small.url : null}}" alt={{event.title}} />
-            <mat-card-content>
-              <p>
-                {{event.description_short}}
-              </p>
-            </mat-card-content>
-          </mat-card>
-    </mat-grid-tile>
-    
-  </mat-grid-list>
+
+<div class="events-grid">
+  <mat-card class="example-card" *ngFor="let event of eventsList">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{event.title}}</mat-card-title>
+      <mat-card-subtitle>Start date: {{event.start_datetime | date }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{event.images ? event.images[0].sizes.small.url : '../assets/images/default-event.png'}}" alt={{event.title}} />
+    <mat-card-content>
+      <p>
+        {{event.description_short}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
