@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {PageEvent} from '@angular/material/paginator';
+
 import { ApiService} from '../api.service';
 import { DatePipe } from '@angular/common';
 
@@ -15,21 +16,26 @@ export class CalendarComponent implements OnInit {
   public fullYear: number = new Date().getFullYear();
   public value: Date = new Date();
   public minDate: Date = new Date();
-  public maxDate: Date = new Date(this.fullYear, 8, 15);
+  public maxDate: Date = new Date();
 
   pipe = new DatePipe('en-US');
 
   calendarConfig;
   calendarID;
-  eventsList;
+  startDate;
 
-  constructor(private http: HttpClient,
-              private api: ApiService) {
+  /* Events variables */
+  eventsList = null;
+  eventsQtd;
+
+  /* Pagination variables */
+  page = 1;
+  itemsPerPage = 10; 
+  pageSizeOptions = [10, 20, 50, 100];
+  pageEvent: PageEvent;
+
+  constructor(private api: ApiService) {
    }
-
-   getCurrentMonth(event) {
-    console.log('event', event);
-  }
 
   getCalendarConfig() {
     this.api.getCalendarSettings()
@@ -39,17 +45,24 @@ export class CalendarComponent implements OnInit {
       })
   }
 
-  getEvents(event) {
-    let startDate = this.pipe.transform(event.value, 'yyyy-MM-dd');
-    this.api.getEventsListByStartDate(this.calendarID, startDate)
-      .subscribe(response => {
+  paginationHandler(event) {
+    this.page = event.pageIndex + 1;
+    this.itemsPerPage = event.pageSize;
+    this.getEvents();
+  }
+
+  getEvents() {
+    this.api.getEventsListByStartDate(this.calendarID, this.startDate, this.page, this.itemsPerPage)
+       .subscribe(response => {
+        
         this.eventsList = response.data.items;
+        this.eventsQtd = response.data.total;
       })
   }
 
-  getImage(imageSrc) {
-    console.log('entrou', imageSrc[0].small.url);
-    return imageSrc[0].small.url;
+  changeStartDateHandler(event) {
+    this.startDate = this.pipe.transform(event.value, 'yyyy-MM-dd');
+    this.getEvents();
   }
 
   ngOnInit(): void {

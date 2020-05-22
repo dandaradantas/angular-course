@@ -20,14 +20,14 @@ export class ApiService {
     return this.http.get(this.mainUrl + calendarId + '/events');
   }
 
-  getEventsListByStartDate(calendarId, startDate): Observable<any> {
+  getEventsListByStartDate(calendarId, startDate, page, itemsPerPage): Observable<any> {
 
     return this.http.get(this.mainUrl + calendarId + '/events', 
     {
       params: {
         'start_date': startDate,
-        'per_page': '12',
-        'page': '1'
+        'per_page': itemsPerPage,
+        'page': page
       }
     });
   }
